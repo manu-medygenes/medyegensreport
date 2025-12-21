@@ -194,10 +194,9 @@
     }
     /* Allow APPENDIX section to break across pages */
     section[class*="appendix"],
-    .appendix-section {
+    section:has(h3:contains("APPENDIX")) {
       break-inside: auto;
       page-break-inside: auto;
-      overflow: visible;
     }
     .section h3 {
       margin: 0 0 18px;
@@ -647,69 +646,11 @@
       font-size: 12px;
       color: var(--muted);
     }
-    /* Report Navigation Button */
-    .report-nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: #ffffff;
-      border: 2px solid var(--accent);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-width: 200px;
-    }
-    .report-nav-header {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 4px;
-    }
-    .report-nav-btn {
-      padding: 10px 14px;
-      background: #f8f9fa;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: left;
-      text-decoration: none;
-      display: block;
-    }
-    .report-nav-btn:hover {
-      background: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
-      transform: translateX(4px);
-    }
-    .report-nav-btn.active {
-      background: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
-    }
-    .report-nav-btn.active::before {
-      content: '✓ ';
-      margin-right: 4px;
-    }
     @page {
       size: A4;
       margin: 0;
     }
     @media print {
-      .report-nav {
-        display: none;
-      }
       body { 
         background: #fff; 
         padding: 0;
@@ -730,22 +671,18 @@
         min-height: auto;
       }
       .section { 
-        break-inside: auto; 
-        page-break-inside: auto;
+        break-inside: avoid; 
+        page-break-inside: avoid;
         margin-bottom: 20px;
         orphans: 3;
         widows: 3;
       }
-      .section.keep-together {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-      .appendix-section {
+      .section[style*="break-inside: auto"] {
         break-inside: auto;
         page-break-inside: auto;
       }
       /* Allow APPENDIX tables to break */
-      .appendix-section table {
+      section[style*="break-inside: auto"] table {
         page-break-inside: auto;
       }
       .finding-card { 
@@ -827,13 +764,6 @@
   </style>
 </head>
 <body>
-  <!-- Report Navigation -->
-  <nav class="report-nav">
-    <div class="report-nav-header">Switch Report</div>
-    <a href="index.html" class="report-nav-btn active">WGS Clinical Report</a>
-    <a href="acmg-report.html" class="report-nav-btn">ACMG Report</a>
-    <a href="genomic-compatibility.html" class="report-nav-btn">Genomic Compatibility</a>
-  </nav>
   <!-- Page 1: Patient Information & Executive Summary -->
   <main class="page">
     <header class="topbar">
@@ -2383,7 +2313,7 @@
         <ul style="margin: 12px 0; padding-left: 24px;">
           <li>The analysis is limited to the 81 genes on the ACMG SF v3.2 list.</li>
           <li>Certain variant types may not be detected, including large deletions/duplications, deep intronic variants, and complex rearrangements.</li>
-          <li>Regions with low coverage (&lt;20x) may have reduced sensitivity.</li>
+          <li>Regions with low coverage (<20x) may have reduced sensitivity.</li>
           <li>Variants in pseudogenes, highly repetitive regions, or segmental duplications may be missed.</li>
           <li>Mosaicism below ~20% may not be detected.</li>
           <li>Clinical interpretation is based on current knowledge and may change as new data emerge.</li>
@@ -2393,7 +2323,7 @@
     </section>
 
     <!-- B12: Appendix -->
-    <section class="section appendix-section">
+    <section class="section" style="break-inside: auto; page-break-inside: auto; overflow: visible;">
       <h3>10. APPENDIX</h3>
       
       <h4 style="margin: 20px 0 8px 0; font-size: 14px; font-weight: 600;">10.1 ACMG/AMP Variant Classification</h4>
@@ -2423,7 +2353,7 @@
           </tr>
           <tr>
             <td><strong>Benign</strong></td>
-            <td>&lt;1% certainty of being disease-causing</td>
+            <td><1% certainty of being disease-causing</td>
           </tr>
         </tbody>
       </table>
@@ -2585,3 +2515,4 @@
 
 </body>
 </html>
+

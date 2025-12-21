@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedyGenes | ACMG Secondary Findings Report</title>
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --panel: #ffffff;
+      --text: #123C4E;
+      --muted: #4c4c4c;
+      --accent: #0CCA4A;
+      --border: #dedede;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 0;
+    }
+    @media screen {
+      body {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--panel);
+      padding: 36px 44px 48px;
+      page-break-after: always;
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      margin-bottom: 24px;
+    }
+    .page:last-child {
+      page-break-after: auto;
+    }
+    .page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, #0CCA4A80 100%);
+    }
+    .page-number {
+      position: absolute;
+      bottom: 20px;
+      right: 44px;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 4px 8px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 18px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+    .brand .mark {
+      width: auto;
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .brand .mark img {
+      height: 100%;
+      width: auto;
+      display: block;
+    }
+    .contact {
+      text-align: right;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .section {
+      margin-bottom: 24px;
+      padding: 18px 18px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+    }
+    .section h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    thead {
+      background: #0f0f0f;
+      color: #fff;
+    }
+    th, td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+    tbody tr:nth-child(odd) { background: #fafafa; }
+    tbody tr:hover { background: #f0f0f0; }
+    .detail-link {
+      color: #00B2FF;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .detail-link:hover { 
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+    .disease-name {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .mim-number {
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .gene-name {
+      font-weight: 700;
+      color: #00B2FF;
+      font-size: 14px;
+    }
+    .variation-list {
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .variation-item {
+      margin-bottom: 4px;
+      font-family: 'Courier New', monospace;
+    }
+    .variation-item:last-child {
+      margin-bottom: 0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+    }
+    .badge.pathogenic {
+      background: #fff4f4;
+      color: #9e1b1b;
+      border: 1px solid #f4c4c4;
+    }
+    .badge.likely-pathogenic {
+      background: #fff8e6;
+      color: #a06100;
+      border: 1px solid #f5d8a1;
+    }
+    .intro-section {
+      margin-bottom: 24px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+    }
+    .intro-section h2 {
+      margin: 0 0 12px 0;
+      font-size: 18px;
+      color: var(--text);
+      font-weight: 700;
+    }
+    .intro-section p {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .intro-section p:last-child {
+      margin-bottom: 0;
+    }
+    .footer {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    /* Report Navigation Button */
+    .report-nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #ffffff;
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 200px;
+    }
+    .report-nav-header {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .report-nav-btn {
+      padding: 10px 14px;
+      background: #f8f9fa;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      text-decoration: none;
+      display: block;
+    }
+    .report-nav-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+    .report-nav-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+    .report-nav-btn.active::before {
+      content: '✓ ';
+      margin-right: 4px;
+    }
+    @media print {
+      .report-nav {
+        display: none;
+      }
+      body {
+        padding: 0;
+        background: white;
+      }
+      .page {
+        border: none;
+        box-shadow: none;
+        margin-bottom: 0;
+        page-break-after: always;
+      }
+      .page:last-child {
+        page-break-after: auto;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Report Navigation -->
+  <nav class="report-nav">
+    <div class="report-nav-header">Switch Report</div>
+    <a href="../index.html" class="report-nav-btn">WGS Clinical Report</a>
+    <a href="acmg_report.html" class="report-nav-btn active">ACMG Report</a>
+    <a href="template1.html" class="report-nav-btn">Genomic Compatibility</a>
+  </nav>
+
+  <!-- Page 1: Introduction and Overview -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">ACMG Secondary Findings Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <div class="intro-section">
+      <h2>ACMG SF v3.2 Recommendations</h2>
+      <p>The American College of Medical Genetics and Genomics (ACMG) has published recommendations for reporting secondary findings in clinical exome and genome sequencing. This report provides an overview of genes and diseases included in the ACMG SF v3.2 list.</p>
+      <p><strong>Purpose:</strong> These recommendations help identify medically actionable genetic variants that may be discovered incidentally during genomic testing, allowing for appropriate clinical follow-up and management.</p>
+      <p><strong>Note:</strong> The variations linked in this report are those asserted to be pathogenic or likely pathogenic by at least one submitter to ClinVar. These results should not be interpreted as a statement that these alleles are universally accepted to be pathogenic or likely pathogenic.</p>
+    </div>
+
+    <section class="section">
+      <h3>Report Overview</h3>
+      <div style="font-size: 14px; line-height: 1.8; color: var(--text);">
+        <div style="margin-bottom: 12px;"><strong>Total Genes:</strong> 81 genes</div>
+        <div style="margin-bottom: 12px;"><strong>Version:</strong> ACMG SF v3.2</div>
+        <div style="margin-bottom: 12px;"><strong>Last Updated:</strong> June 2023</div>
+        <div><strong>Categories:</strong> Cardiovascular, Cancer, Metabolic, Neurological, and other medically actionable conditions</div>
+      </div>
+    </section>
+
+    <div class="page-number">Page 1</div>
+  </main>
+
+  <!-- Page 2: Cardiovascular Conditions -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">ACMG Secondary Findings Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <section class="section">
+      <h3>Cardiovascular Conditions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Disease</th>
+            <th style="width: 10%;">Gene</th>
+            <th style="width: 15%;">Inheritance Pattern</th>
+            <th style="width: 30%;">Example Variations</th>
+            <th style="width: 20%;">Pathogenic Variations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="disease-name">Adenomatous polyposis coli</div>
+              <div class="mim-number">MIM 175100</div>
+            </td>
+            <td><span class="gene-name">APC</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000038.6(APC):c.3920_3921del</div>
+                <div class="variation-item">NM_000038.6(APC):c.3183_3187del</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=APC[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Aortic aneurysm, familial thoracic 4</div>
+              <div class="mim-number">MIM 132900</div>
+            </td>
+            <td><span class="gene-name">MYH11</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_002471.4(MYH11):c.1153C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=MYH11[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Aortic aneurysm, familial thoracic 6</div>
+              <div class="mim-number">MIM 611788</div>
+            </td>
+            <td><span class="gene-name">ACTA2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_001613.4(ACTA2):c.536G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=ACTA2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Arrhythmogenic right ventricular cardiomyopathy, type 5</div>
+              <div class="mim-number">MIM 604400</div>
+            </td>
+            <td><span class="gene-name">TMEM43</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_024334.3(TMEM43):c.1073C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=TMEM43[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Arrhythmogenic right ventricular cardiomyopathy, type 8</div>
+              <div class="mim-number">MIM 607450</div>
+            </td>
+            <td><span class="gene-name">DSP</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_004415.4(DSP):c.631G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=DSP[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Arrhythmogenic right ventricular cardiomyopathy, type 9</div>
+              <div class="mim-number">MIM 609040</div>
+            </td>
+            <td><span class="gene-name">PKP2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_004572.4(PKP2):c.2146-1G>C</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=PKP2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Arrhythmogenic right ventricular cardiomyopathy, type 10</div>
+              <div class="mim-number">MIM 610193</div>
+            </td>
+            <td><span class="gene-name">DSG2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_001943.5(DSG2):c.304G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=DSG2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Brugada syndrome 1</div>
+              <div class="mim-number">MIM 601144</div>
+            </td>
+            <td><span class="gene-name">SCN5A</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_198056.3(SCN5A):c.3578G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=SCN5A[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Catecholaminergic polymorphic ventricular tachycardia</div>
+              <div class="mim-number">MIM 604772</div>
+            </td>
+            <td><span class="gene-name">RYR2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_001035.3(RYR2):c.12184G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=RYR2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Dilated cardiomyopathy 1A</div>
+              <div class="mim-number">MIM 115200</div>
+            </td>
+            <td><span class="gene-name">LMNA</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_170707.4(LMNA):c.1138C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=LMNA[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Familial hypertrophic cardiomyopathy</div>
+              <div class="mim-number">MIM 192600</div>
+            </td>
+            <td><span class="gene-name">MYBPC3</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000256.4(MYBPC3):c.1504C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=MYBPC3[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Familial hypertrophic cardiomyopathy</div>
+              <div class="mim-number">MIM 192600</div>
+            </td>
+            <td><span class="gene-name">MYH7</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000257.4(MYH7):c.1208G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=MYH7[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Long QT syndrome 1</div>
+              <div class="mim-number">MIM 192500</div>
+            </td>
+            <td><span class="gene-name">KCNQ1</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000218.3(KCNQ1):c.1781G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=KCNQ1[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Long QT syndrome 2</div>
+              <div class="mim-number">MIM 613688</div>
+            </td>
+            <td><span class="gene-name">KCNH2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000238.4(KCNH2):c.1681G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=KCNH2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Long QT syndrome 3</div>
+              <div class="mim-number">MIM 603830</div>
+            </td>
+            <td><span class="gene-name">SCN5A</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_198056.3(SCN5A):c.4813+3_4813+6del</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=SCN5A[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="page-number">Page 2</div>
+  </main>
+
+  <!-- Page 3: Cancer Predisposition Syndromes -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">ACMG Secondary Findings Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <section class="section">
+      <h3>Cancer Predisposition Syndromes</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Disease</th>
+            <th style="width: 10%;">Gene</th>
+            <th style="width: 15%;">Inheritance Pattern</th>
+            <th style="width: 30%;">Example Variations</th>
+            <th style="width: 20%;">Pathogenic Variations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="disease-name">Breast-ovarian cancer, familial 1</div>
+              <div class="mim-number">MIM 604370</div>
+            </td>
+            <td><span class="gene-name">BRCA1</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_007294.4(BRCA1):c.5266dupC</div>
+                <div class="variation-item">NM_007294.4(BRCA1):c.181T>G</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=BRCA1[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Breast-ovarian cancer, familial 2</div>
+              <div class="mim-number">MIM 612555</div>
+            </td>
+            <td><span class="gene-name">BRCA2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000059.4(BRCA2):c.5946delT</div>
+                <div class="variation-item">NM_000059.4(BRCA2):c.2808_2811del</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=BRCA2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Li-Fraumeni syndrome</div>
+              <div class="mim-number">MIM 151623</div>
+            </td>
+            <td><span class="gene-name">TP53</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000546.6(TP53):c.742C>T</div>
+                <div class="variation-item">NM_000546.6(TP53):c.733G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=TP53[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Lynch syndrome</div>
+              <div class="mim-number">MIM 120435</div>
+            </td>
+            <td><span class="gene-name">MLH1</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000249.4(MLH1):c.350C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=MLH1[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Lynch syndrome</div>
+              <div class="mim-number">MIM 120435</div>
+            </td>
+            <td><span class="gene-name">MSH2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000251.3(MSH2):c.942+3A>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=MSH2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Lynch syndrome</div>
+              <div class="mim-number">MIM 120435</div>
+            </td>
+            <td><span class="gene-name">MSH6</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000179.3(MSH6):c.3261dupC</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=MSH6[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Lynch syndrome</div>
+              <div class="mim-number">MIM 120435</div>
+            </td>
+            <td><span class="gene-name">PMS2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000535.7(PMS2):c.137G>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=PMS2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Familial adenomatous polyposis</div>
+              <div class="mim-number">MIM 175100</div>
+            </td>
+            <td><span class="gene-name">APC</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000038.6(APC):c.3920_3921del</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=APC[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Peutz-Jeghers syndrome</div>
+              <div class="mim-number">MIM 175200</div>
+            </td>
+            <td><span class="gene-name">STK11</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000455.5(STK11):c.464G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=STK11[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">PTEN hamartoma tumor syndrome</div>
+              <div class="mim-number">MIM 158350</div>
+            </td>
+            <td><span class="gene-name">PTEN</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000314.9(PTEN):c.388C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=PTEN[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Retinoblastoma</div>
+              <div class="mim-number">MIM 180200</div>
+            </td>
+            <td><span class="gene-name">RB1</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000321.3(RB1):c.958C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=RB1[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Von Hippel-Lindau syndrome</div>
+              <div class="mim-number">MIM 193300</div>
+            </td>
+            <td><span class="gene-name">VHL</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000551.4(VHL):c.499C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=VHL[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Wilms' tumor</div>
+              <div class="mim-number">MIM 194070</div>
+            </td>
+            <td><span class="gene-name">WT1</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000378.6(WT1):c.1180C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=WT1[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Tuberous sclerosis 1</div>
+              <div class="mim-number">MIM 191100</div>
+            </td>
+            <td><span class="gene-name">TSC1</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000368.5(TSC1):c.2209C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=TSC1[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Tuberous sclerosis 2</div>
+              <div class="mim-number">MIM 613254</div>
+            </td>
+            <td><span class="gene-name">TSC2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000548.5(TSC2):c.1831C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=TSC2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="page-number">Page 3</div>
+  </main>
+
+  <!-- Page 4: Metabolic and Other Conditions -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">ACMG Secondary Findings Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <section class="section">
+      <h3>Metabolic and Other Conditions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Disease</th>
+            <th style="width: 10%;">Gene</th>
+            <th style="width: 15%;">Inheritance Pattern</th>
+            <th style="width: 30%;">Example Variations</th>
+            <th style="width: 20%;">Pathogenic Variations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="disease-name">Wilson disease</div>
+              <div class="mim-number">MIM 277900</div>
+            </td>
+            <td><span class="gene-name">ATP7B</span></td>
+            <td>AR</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000053.4(ATP7B):c.4374_4375del (p.Arg1459fs)</div>
+                <div class="variation-item">NM_000053.4(ATP7B):c.4373del (p.Gly1458fs)</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=ATP7B[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Pompe disease</div>
+              <div class="mim-number">MIM 232300</div>
+            </td>
+            <td><span class="gene-name">GAA</span></td>
+            <td>AR</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000152.5(GAA):c.2560C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=GAA[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Ornithine carbamoyltransferase deficiency</div>
+              <div class="mim-number">MIM 311250</div>
+            </td>
+            <td><span class="gene-name">OTC</span></td>
+            <td>XL</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000531.6(OTC):c.386G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=OTC[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">RPE65-related retinopathy</div>
+              <div class="mim-number">MIM 204100, 613794</div>
+            </td>
+            <td><span class="gene-name">RPE65</span></td>
+            <td>AR</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000329.3(RPE65):c.271C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=RPE65[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Pheochromocytoma</div>
+              <div class="mim-number">MIM 171300</div>
+            </td>
+            <td><span class="gene-name">MAX</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_002382.5(MAX):c.171G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=MAX[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Pheochromocytoma</div>
+              <div class="mim-number">MIM 171300</div>
+            </td>
+            <td><span class="gene-name">TMEM127</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_001193307.2(TMEM127):c.241C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=TMEM127[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Paragangliomas 2</div>
+              <div class="mim-number">MIM 601650</div>
+            </td>
+            <td><span class="gene-name">SDHAF2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_017841.3(SDHAF2):c.232G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=SDHAF2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Paragangliomas 3</div>
+              <div class="mim-number">MIM 605373</div>
+            </td>
+            <td><span class="gene-name">SDHC</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_003001.4(SDHC):c.405+1G>A</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=SDHC[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="disease-name">Neurofibromatosis type 2</div>
+              <div class="mim-number">MIM 101000</div>
+            </td>
+            <td><span class="gene-name">NF2</span></td>
+            <td>AD</td>
+            <td>
+              <div class="variation-list">
+                <div class="variation-item">NM_000268.4(NF2):c.784C>T</div>
+              </div>
+            </td>
+            <td><a href="https://www.ncbi.nlm.nih.gov/clinvar/?term=NF2[gene]+AND+(clinsig_pathogenic[prop]+OR+clinsig_likely_pathogenic[prop])+AND+%22single+gene%22[prop]" target="_blank" class="detail-link">View in ClinVar</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="footer">
+      <div>Confidential · For clinical decision support only</div>
+      <div>MedyGenes © 2025</div>
+      <div style="margin-top: 8px; font-size: 10px; color: var(--muted);">
+        Based on ACMG SF v3.2 recommendations. For more information, visit 
+        <a href="https://www.ncbi.nlm.nih.gov/clinvar/docs/acmg/" target="_blank" style="color: #00B2FF; text-decoration: underline;">NCBI ClinVar ACMG Documentation</a>
+      </div>
+    </footer>
+
+    <div class="page-number">Page 4</div>
+  </main>
+
+</body>
+</html>
+

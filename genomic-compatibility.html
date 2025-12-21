@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedyGenes | Patient Report</title>
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --panel: #ffffff;
+      --text: #123C4E;
+      --muted: #4c4c4c;
+      --accent: #0CCA4A;
+      --border: #dedede;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 0;
+    }
+    @media screen {
+      body {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      padding: 36px 44px 48px;
+      page-break-after: always;
+    }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--panel);
+      padding: 36px 44px 48px;
+      page-break-after: always;
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      margin-bottom: 24px;
+    }
+    .page:last-child {
+      page-break-after: auto;
+    }
+    .page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, #0CCA4A80 100%);
+    }
+    .page-number {
+      position: absolute;
+      bottom: 20px;
+      right: 44px;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 4px 8px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+    .page-header-label {
+      position: absolute;
+      top: 20px;
+      right: 44px;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      opacity: 0.7;
+      padding: 4px 8px;
+      background: #f9f9f9;
+      border-radius: 4px;
+      border-left: 2px solid var(--accent);
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 18px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+    .brand .mark {
+      width: auto;
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .brand .mark img {
+      height: 100%;
+      width: auto;
+      display: block;
+    }
+    .contact {
+      text-align: right;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .section {
+      margin-bottom: 24px;
+      padding: 18px 18px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+    }
+    .section h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px 18px;
+      font-size: 14px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .meta-grid > div > div {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 400;
+    }
+    .meta-grid .label {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: block;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .icon-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      letter-spacing: 0.2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: underline;
+      transition: opacity 0.2s;
+    }
+    .pill:hover {
+      opacity: 0.8;
+    }
+    .pill-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+    .pill-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+    .pill.normal {
+      background: #f2fff9;
+      color: #187a4d;
+      border: 1px solid #c7f1dc;
+    }
+    .pill.dose-change {
+      background: #fff8e6;
+      color: #a06100;
+      border: 1px solid #f5d8a1;
+    }
+    .pill.bad {
+      background: #fff4f4;
+      color: #9e1b1b;
+      border: 1px solid #f5b5b5;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    thead {
+      background: #0f0f0f;
+      color: #fff;
+    }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+    td[rowspan] {
+      vertical-align: middle;
+      font-weight: 600;
+    }
+    tbody tr:nth-child(odd) { background: #fafafa; }
+    td div {
+      margin: 2px 0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      font-weight: 600;
+    }
+    .badge.impact-high { background: #fff4f4; color: #9e1b1b; border: 1px solid #f4c4c4; }
+    .badge.impact-moderate { background: #f2fff9; color: #187a4d; border: 1px solid #c7f1dc; }
+    .badge.impact-low { background: #f5f7ff; color: #00B2FF; border: 1px solid #d5dcff; }
+    .badge.strength-strong { background: #fff4f4; color: #9e1b1b; border: 1px solid #f4c4c4; }
+    .badge.strength-moderate { background: #f2fff9; color: #187a4d; border: 1px solid #c7f1dc; }
+    .badge.strength-optional { background: #f8f8f8; color: #666; border: 1px solid #ddd; }
+    .notes {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .detail-notes {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .drug-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .drug-info-item {
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid #e8e8e8;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .drug-info-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+    .drug-info-item h4 {
+      margin: 0 0 10px 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .drug-info-item h4::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .drug-info-item p,
+    .drug-info-item ul {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .drug-info-item ul {
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+    .drug-info-item li {
+      margin-bottom: 6px;
+    }
+    .drug-info-item.important {
+      background: #fff8e6;
+      border-color: #f5d8a1;
+    }
+    .drug-info-item.important h4::before {
+      background: #a06100;
+    }
+    .drug-info-item.warning {
+      background: #fff4f4;
+      border-color: #f5b5b5;
+    }
+    .drug-info-item.warning h4::before {
+      background: #9e1b1b;
+    }
+    .drug-info-item.success {
+      background: #f2fff9;
+      border-color: #c7f1dc;
+    }
+    .drug-info-item.success h4::before {
+      background: #187a4d;
+    }
+    .warning-row {
+      background: #fff4f4;
+      border-left: 3px solid #9e1b1b;
+    }
+    .warning-row td:first-child {
+      padding: 12px 10px;
+      color: #9e1b1b;
+      font-weight: 700;
+      font-size: 13px;
+      vertical-align: middle;
+      border-right: 1px solid #f5b5b5;
+    }
+    .warning-row td:not(:first-child) {
+      padding: 12px 10px;
+      color: #9e1b1b;
+      font-weight: 600;
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    .warning-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .warning-icon svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .detail-link {
+      color: var(--accent);
+      text-decoration: underline;
+      font-weight: 700;
+    }
+    .detail-link:hover { text-decoration: underline; }
+    .drug-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .drug-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    #drug-details .drug-card {
+      border-top: 3px solid var(--accent);
+      padding-top: 24px;
+      margin-bottom: 24px;
+    }
+    .drug-head {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .drug-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .drug-indication {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+      margin-top: 4px;
+      font-style: italic;
+    }
+    #drug-details .drug-title {
+      font-size: 20px;
+      margin-bottom: 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    #drug-details .drug-head {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    #finding-atorvastatin .drug-title a {
+      color: #a06100;
+    }
+    #finding-metformin .drug-title a,
+    #finding-lisinopril .drug-title a {
+      color: #187a4d;
+    }
+    #finding-clopidogrel .drug-title a {
+      color: #9e1b1b;
+    }
+    .drug-head-items {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 12px;
+    }
+    .drug-head-item {
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: #f5f5f5;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .drug-head-item:hover {
+      background: #e8e8e8;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .drug-head-item::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(2px);
+      padding: 8px 12px;
+      background: #111;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 11px;
+      line-height: 1.4;
+      white-space: normal;
+      max-width: 280px;
+      width: max-content;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+    .drug-head-item::before {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #111;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 11;
+    }
+    .drug-head-item:hover::after,
+    .drug-head-item:hover::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .drug-head-item:hover::before {
+      transform: translateX(-50%);
+    }
+    .drug-head-item strong {
+      color: var(--text);
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .source-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: #f5f5f5;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid #e0e0e0;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .source-row:hover {
+      background: #e8e8e8;
+    }
+    .source-row a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .source-row:hover a {
+      color: var(--text);
+    }
+    .source-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      background: #fff;
+      border: 1px solid #000;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .source-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    .tag {
+      padding: 5px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      border: 1px solid transparent;
+      text-transform: uppercase;
+    }
+    .tag.safe { background: #f2fff9; color: #187a4d; border-color: #c7f1dc; }
+    .tag.caution { background: #fff8e6; color: #a06100; border-color: #f5d8a1; }
+    .tag.avoid { background: #fff4f4; color: #9e1b1b; border-color: #f5b5b5; }
+    .drug-icons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .drug-icon {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    .drug-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .drug-icon.active {
+      background: #0CCA4A;
+      border-color: #0CCA4A;
+    }
+    .drug-icon.active svg {
+      fill: #ffffff;
+    }
+    .drug-icon.inactive {
+      background: #f5f5f5;
+      border-color: #e0e0e0;
+    }
+    .drug-icon.inactive svg {
+      fill: #9e9e9e;
+    }
+    .footer {
+      margin-top: 36px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    /* Report Navigation Button */
+    .report-nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #ffffff;
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 200px;
+    }
+    .report-nav-header {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .report-nav-btn {
+      padding: 10px 14px;
+      background: #f8f9fa;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      text-decoration: none;
+      display: block;
+    }
+    .report-nav-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+    .report-nav-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+    .report-nav-btn.active::before {
+      content: '✓ ';
+      margin-right: 4px;
+    }
+    @media print {
+      .report-nav {
+        display: none;
+      }
+      body { background: #fff; padding: 0; }
+      .sheet, .page { 
+        box-shadow: none; 
+        border: 1px solid #e0e0e0; 
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        page-break-after: always;
+      }
+      .page:last-child {
+        page-break-after: auto;
+      }
+      .section { break-inside: avoid; }
+      .page-break { page-break-before: always; }
+      .page-header-label {
+        opacity: 0.4;
+      }
+    }
+    @page {
+      size: A4;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Report Navigation -->
+  <nav class="report-nav">
+    <div class="report-nav-header">Switch Report</div>
+    <a href="index.html" class="report-nav-btn">WGS Clinical Report</a>
+    <a href="acmg-report.html" class="report-nav-btn">ACMG Report</a>
+    <a href="genomic-compatibility.html" class="report-nav-btn active">Genomic Compatibility</a>
+  </nav>
+  <!-- Page 1: Patient Details & Prescription -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">Genomic Compatibility Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <section class="section">
+      <h3>Patient</h3>
+      <div class="meta-grid">
+        <div>
+          <span class="label">Name</span>
+          <div>Patient Name</div>
+        </div>
+        <div>
+          <span class="label">Age</span>
+          <div>45</div>
+        </div>
+        <div>
+          <span class="label">Sex</span>
+          <div>Female</div>
+        </div>
+        <div>
+          <span class="label">Physician</span>
+          <div>Dr. Alex Doe</div>
+        </div>
+        <div>
+          <span class="label">Report ID</span>
+          <div>MG-2025-001</div>
+        </div>
+        <div>
+          <span class="label">Collected</span>
+          <div>2025-12-15</div>
+        </div>
+        <div>
+          <span class="label">Patient ID</span>
+          <div>PT-45821</div>
+        </div>
+        <div>
+          <span class="label">Conditions</span>
+          <div>Diabetes (T2), Hyperlipidemia</div>
+        </div>
+        <div>
+          <span class="label">Health Insurance</span>
+          <div>Maccabi</div>
+        </div>
+        <div>
+          <span class="label">Patient Details</span>
+          <div class="icon-chips">
+            <span class="chip vegan" title="Vegan friendly">Vegan</span>
+            <span class="chip lactose" title="Lactose considerations">Lactose</span>
+            <span class="chip nonsmoke" title="Non-smoker">Non-Smoke</span>
+            <span class="chip allergy" title="Allergy alert">Allergy</span>
+            <span class="chip monitor" title="Extra monitoring needed">Monitor</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Prescription & Recommendation</h3>
+      <div class="pill-list">
+        <a href="#finding-atorvastatin" class="pill dose-change">
+          <strong>Lipitor</strong> — Atorvastatin 20mg
+        </a>
+        <a href="#finding-metformin" class="pill normal">
+          <strong>Glucophage</strong> — Metformin 500mg
+        </a>
+        <a href="#finding-lisinopril" class="pill normal">
+          <strong>Zestril</strong> — Lisinopril 10mg
+        </a>
+        <a href="#finding-clopidogrel" class="pill bad">
+          <strong>Plavix</strong> — Clopidogrel 75mg — not recommended
+        </a>
+      </div>
+      <div class="notes">
+        Based on the patient's genetic profile and current regimen, certain medications may have reduced efficacy or elevated risk. Adjust therapy where marked "not recommended."
+      </div>
+    </section>
+    <div class="page-number">Page 1</div>
+  </main>
+
+  <!-- Page 2: Drug Genetics -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">Genomic Compatibility Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <section class="section" style="border: none;">
+      <h3>Drug-Specific Genetic Findings</h3>
+      <div class="drug-grid">
+
+        <div class="drug-card" id="finding-atorvastatin">
+        <div class="drug-head">
+          <div class="drug-title">
+            <a class="detail-link" href="#drug-atorvastatin">Lipitor — Atorvastatin 20mg</a>
+            <div class="drug-indication">For cardiovascular health (cholesterol management)</div>
+          </div>
+          <div class="drug-head-items">
+            <div class="drug-head-item" data-tooltip="Interactions with Clopidogrel: Atorvastatin competes for CYP metabolism while clopidogrel activation is already reduced genetically. Prefer alternative antiplatelet."><strong>Check Interaction:</strong> Yes</div>
+            <div class="drug-head-item" data-tooltip="Dose too high: Genetic variants (SLCO1B1 *5/*5, ABCG2) increase systemic exposure and myopathy risk. Consider lower dose or alternate statin."><strong>Check Dose:</strong> Yes</div>
+            <div class="drug-head-item" data-tooltip="Use Pravastatin instead: According to your genetic analysis, pravastatin may be better tolerated with reduced myopathy risk."><strong>Alternative Drug:</strong> Pravastatin</div>
+          </div>
+        </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Gene</th>
+                <th>Genotype</th>
+                <th>Phenotype</th>
+                <th>Description</th>
+                <th>Clinical Recommendation</th>
+                <th>Strength</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SLCO1B1</td>
+                <td><a class="detail-link" href="#geno-slco1b1-5">*5</a> / <a class="detail-link" href="#geno-slco1b1-5">*5</a></td>
+                <td>Reduced statin clearance</td>
+                <td>Higher systemic exposure may increase myopathy risk.</td>
+                <td>Prefer lower dose or alternate statin (e.g., pravastatin).</td>
+                <td><span class="badge impact-moderate">Moderate</span></td>
+              </tr>
+              <tr class="warning-row">
+                <td><strong>SLCO1B1</strong></td>
+                <td colspan="5">
+                  <span class="warning-icon">
+                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 2 L18 16 L2 16 Z" fill="#9e1b1b"/>
+                      <path d="M10 7 L10 11 M10 13 L10 13.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <strong>Not recommended</strong>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>ABCG2</td>
+                <td><a class="detail-link" href="#geno-abcg2-421">c.421 C>A</a></td>
+                <td>Elevated plasma levels</td>
+                <td>Transport variant associated with increased atorvastatin levels.</td>
+                <td>Monitor for muscle symptoms; consider dose reduction.</td>
+                <td><span class="badge impact-moderate">Moderate</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="detail-notes">
+            <div><strong>Clinical Summary:</strong> Goal: lipid lowering. Genetic risk: higher myopathy probability; consider lower dose or alternate statin.</div>
+            <div><strong>Drug mechanism:</strong> HMG-CoA reductase inhibitor reducing hepatic cholesterol synthesis.</div>
+            <div><strong>Drug implication:</strong> See details at <a class="detail-link" href="#drug-atorvastatin">Atorvastatin</a>.</div>
+            <a href="https://www.ebi.ac.uk/chembl/explore/compound/CHEMBL1487" target="_blank" class="source-row">
+              <span class="source-icon" title="CPIC">
+                <img src="https://cpicpgx.org/favicon.ico" alt="CPIC" onerror="this.style.display='none'">
+              </span>
+              <span class="source-icon" title="FDA">
+                <img src="https://www.fda.gov/favicon.ico" alt="FDA" onerror="this.style.display='none'">
+              </span>
+              <span>Sources: CPIC, FDA</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="drug-card" id="finding-clopidogrel">
+        <div class="drug-head">
+          <div class="drug-title">
+            <a class="detail-link" href="#drug-clopidogrel">Plavix — Clopidogrel 75mg</a>
+            <div class="drug-indication">For cardiovascular health (blood clot prevention)</div>
+          </div>
+          <div class="drug-head-items">
+            <div class="drug-head-item" data-tooltip="Interactions with Atorvastatin: Atorvastatin competes for CYP metabolism while clopidogrel activation is already reduced genetically. Switch to alternative antiplatelet."><strong>Check Interaction:</strong> Yes</div>
+            <div class="drug-head-item" data-tooltip="Dose appropriate: No dose adjustment needed based on current genetic profile."><strong>Check Dose:</strong> -</div>
+            <div class="drug-head-item" data-tooltip="Use Ticagrelor or Prasugrel instead: According to your genetic analysis (CYP2C19 *2/*2 poor metabolizer), these alternatives provide better antiplatelet effect."><strong>Alternative Drug:</strong> Ticagrelor, Prasugrel</div>
+          </div>
+        </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Gene</th>
+                <th>Genotype</th>
+                <th>Phenotype</th>
+                <th>Description</th>
+                <th>Clinical Recommendation</th>
+                <th>Strength</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CYP2C19</td>
+                <td><a class="detail-link" href="#geno-cyp2c19-2">*2</a> / <a class="detail-link" href="#geno-cyp2c19-2">*2</a></td>
+                <td>Poor metabolizer</td>
+                <td>Loss-of-function alleles reduce clopidogrel activation.</td>
+                <td>Switch to alternative (e.g., ticagrelor or prasugrel).</td>
+                <td><span class="badge strength-strong">Strong</span></td>
+              </tr>
+              <tr>
+                <td>ABCB1</td>
+                <td><a class="detail-link" href="#geno-abcb1-3435">3435 C>T</a></td>
+                <td>Altered absorption</td>
+                <td>May decrease intestinal absorption and active metabolite levels.</td>
+                <td>Reinforces need for alternative agent.</td>
+                <td><span class="badge strength-optional">Optional</span></td>
+              </tr>
+              <tr class="warning-row">
+                <td><strong>ABCB1</strong></td>
+                <td colspan="5">
+                  <span class="warning-icon">
+                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 2 L18 16 L2 16 Z" fill="#9e1b1b"/>
+                      <path d="M10 7 L10 11 M10 13 L10 13.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <strong>Not recommended</strong>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="detail-notes">
+            <div><strong>Clinical Summary:</strong> Genetic profile suggests reduced activation; substitute with alternative antiplatelet.</div>
+            <div><strong>Drug mechanism:</strong> P2Y12 receptor antagonist requiring CYP activation.</div>
+            <div><strong>Drug implication:</strong> See details at <a class="detail-link" href="#drug-clopidogrel">Clopidogrel</a>.</div>
+            <a href="https://www.ebi.ac.uk/chembl/explore/compound/CHEMBL1771" target="_blank" class="source-row">
+              <span class="source-icon" title="CPIC">
+                <img src="https://cpicpgx.org/favicon.ico" alt="CPIC" onerror="this.style.display='none'">
+              </span>
+              <span class="source-icon" title="FDA">
+                <img src="https://www.fda.gov/favicon.ico" alt="FDA" onerror="this.style.display='none'">
+              </span>
+              <span>Sources: CPIC, FDA</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="drug-card" id="finding-metformin">
+        <div class="drug-head">
+          <div class="drug-title">
+            <a class="detail-link" href="#drug-metformin">Glucophage — Metformin 500mg</a>
+            <div class="drug-indication">For diabetes management</div>
+          </div>
+          <div class="drug-head-items">
+            <div class="drug-head-item" data-tooltip="No significant interactions with other pills: Metformin is generally compatible with Atorvastatin, Lisinopril, and Clopidogrel."><strong>Check Interaction:</strong> -</div>
+            <div class="drug-head-item" data-tooltip="Dose appropriate: Current dose (500mg) is suitable based on your genetic profile. No dose reduction needed."><strong>Check Dose:</strong> -</div>
+            <div class="drug-head-item" data-tooltip="No alternative needed: According to your genetic analysis, metformin is appropriate and no alternative drug is recommended."><strong>Alternative Drug:</strong> -</div>
+          </div>
+        </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Gene</th>
+                <th>Genotype</th>
+                <th>Phenotype</th>
+                <th>Description</th>
+                <th>Clinical Recommendation</th>
+                <th>Strength</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ATM</td>
+                <td><a class="detail-link" href="#geno-atm-3161">c.3161 G>A</a></td>
+                <td>Typical glycemic response</td>
+                <td>Common variant with no dose change typically required.</td>
+                <td>Use standard dosing; monitor A1C as usual.</td>
+                <td><span class="badge strength-optional">Optional</span></td>
+              </tr>
+              <tr>
+                <td>SLC22A1</td>
+                <td><a class="detail-link" href="#geno-slc22a1-r61c">R61C</a></td>
+                <td>Mildly reduced uptake</td>
+                <td>May slightly reduce hepatic uptake; modest effect expected.</td>
+                <td>No change needed; monitor glycemic control.</td>
+                <td><span class="badge strength-optional">Optional</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="detail-notes">
+            <div><strong>Clinical Summary:</strong> Standard dosing supported. Monitor renal function per routine.</div>
+            <div><strong>Drug mechanism:</strong> Decreases hepatic gluconeogenesis, improves insulin sensitivity.</div>
+            <div><strong>Drug implication:</strong> See details at <a class="detail-link" href="#drug-metformin">Metformin</a>.</div>
+            <a href="https://www.ebi.ac.uk/chembl/explore/compound/CHEMBL1431" target="_blank" class="source-row">
+              <span class="source-icon" title="CPIC">
+                <img src="https://cpicpgx.org/favicon.ico" alt="CPIC" onerror="this.style.display='none'">
+              </span>
+              <span class="source-icon" title="FDA">
+                <img src="https://www.fda.gov/favicon.ico" alt="FDA" onerror="this.style.display='none'">
+              </span>
+              <span>Sources: CPIC, FDA</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="drug-card" id="finding-lisinopril">
+        <div class="drug-head">
+          <div class="drug-title">
+            <a class="detail-link" href="#drug-lisinopril">Zestril — Lisinopril 10mg</a>
+            <div class="drug-indication">For cardiovascular health (blood pressure management)</div>
+          </div>
+          <div class="drug-head-items">
+            <div class="drug-head-item" data-tooltip="No significant interactions with other pills: Lisinopril is generally compatible with Atorvastatin, Metformin, and Clopidogrel. Monitor for muscle pain with statins."><strong>Check Interaction:</strong> -</div>
+            <div class="drug-head-item" data-tooltip="Dose appropriate: Current dose (10mg) is suitable based on your genetic profile. No dose reduction needed."><strong>Check Dose:</strong> -</div>
+            <div class="drug-head-item" data-tooltip="No alternative needed: According to your genetic analysis, lisinopril is appropriate and no alternative drug is recommended."><strong>Alternative Drug:</strong> -</div>
+          </div>
+        </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Gene</th>
+                <th>Genotype</th>
+                <th>Phenotype</th>
+                <th>Description</th>
+                <th>Clinical Recommendation</th>
+                <th>Strength</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ACE</td>
+                <td><a class="detail-link" href="#geno-ace-id">I/D</a></td>
+                <td>Typical ACE expression</td>
+                <td>Common insertion/deletion variant; no major dosing impact.</td>
+                <td>Continue standard dosing; monitor labs per routine.</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="detail-notes">
+            <div><strong>Clinical Summary:</strong> No major pharmacogenetic concerns identified. Monitor potassium and blood pressure as usual.</div>
+            <div><strong>Drug mechanism:</strong> ACE inhibitor reducing angiotensin II production, lowering blood pressure.</div>
+            <div><strong>Drug implication:</strong> See details at <a class="detail-link" href="#drug-lisinopril">Lisinopril</a>.</div>
+            <a href="https://www.ebi.ac.uk/chembl/explore/compound/CHEMBL1237" target="_blank" class="source-row">
+              <span class="source-icon" title="CPIC">
+                <img src="https://cpicpgx.org/favicon.ico" alt="CPIC" onerror="this.style.display='none'">
+              </span>
+              <span class="source-icon" title="FDA">
+                <img src="https://www.fda.gov/favicon.ico" alt="FDA" onerror="this.style.display='none'">
+              </span>
+              <span>Sources: CPIC, FDA</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <div class="page-number">Page 2</div>
+  </main>
+
+  <!-- Page 3: Drug Details -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">Genomic Compatibility Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <section class="section" id="drug-details" style="margin-top:24px; border: none;">
+      <h3>Drug Details (linked)</h3>
+      <div class="notes">Linked from each drug name above for quick reference.</div>
+      
+      <div class="drug-card" id="drug-atorvastatin" style="margin-top: 16px;">
+        <div class="drug-head">
+          <div class="drug-title">
+            Atorvastatin (Lipitor)
+          </div>
+          <span class="drug-icons">
+            <span class="drug-icon inactive" title="Natural Product: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.8 2.8C16.2 2.09 14.21 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 9.91-4.08 10-9.5 0-1.08-.11-2.11-.3-3.08-.19-.96-.48-1.87-.87-2.72-.39-.85-.88-1.63-1.45-2.32-.57-.69-1.22-1.28-1.94-1.77-.72-.49-1.5-.88-2.32-1.15-.82-.27-1.68-.4-2.58-.4-.9 0-1.76.13-2.58.4-.82.27-1.6.66-2.32 1.15-.72.49-1.37 1.08-1.94 1.77-.57.69-1.06 1.47-1.45 2.32-.39.85-.68 1.76-.87 2.72-.19.97-.3 2-.3 3.08C2.09 16.92 6.49 21 12 21c5.52 0 9.91-4.08 10-9.5 0-1.08-.11-2.11-.3-3.08-.19-.96-.48-1.87-.87-2.72-.39-.85-.88-1.63-1.45-2.32-.57-.69-1.22-1.28-1.94-1.77-.72-.49-1.5-.88-2.32-1.15-.82-.27-1.68-.4-2.58-.4-.9 0-1.76.13-2.58.4-.82.27-1.6.66-2.32 1.15-.72.49-1.37 1.08-1.94 1.77-.57.69-1.06 1.47-1.45 2.32-.39.85-.68 1.76-.87 2.72-.19.97-.3 2-.3 3.08C2.09 16.92 6.49 21 12 21c5.52 0 9.91-4.08 10-9.5 0-1.08-.11-2.11-.3-3.08z" fill="currentColor" opacity="0.3"/>
+                <path d="M12 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm4 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="drug-icon inactive" title="Chemical Probe: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.39.5-.15 1.2.5 1.2h14.6c.65 0 .89-.7.5-1.2z" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Rule Of Five: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                <text x="12" y="16" font-size="14" font-weight="bold" fill="white" text-anchor="middle">5</text>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Approved Drug: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Synthetic: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                <circle cx="16" cy="8" r="2" fill="currentColor"/>
+                <circle cx="8" cy="16" r="2" fill="currentColor"/>
+                <circle cx="16" cy="16" r="2" fill="currentColor"/>
+                <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="8" x2="8" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="16" y1="8" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="16" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div class="drug-info-grid">
+          <div class="drug-info-item">
+            <h4>Dosage</h4>
+            <p><strong>20mg daily</strong></p>
+          </div>
+          <div class="drug-info-item">
+            <h4>How It Works</h4>
+            <p>Lowers cholesterol by reducing production in the liver</p>
+          </div>
+          <div class="drug-info-item important">
+            <h4>Genetic Considerations</h4>
+            <p>Your genetic profile suggests higher risk of muscle side effects. Consider lower dose or alternative.</p>
+          </div>
+          <div class="drug-info-item warning">
+            <h4>Watch For</h4>
+            <ul>
+              <li>Muscle pain or weakness</li>
+              <li>Liver problems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="drug-card" id="drug-clopidogrel" style="margin-top: 16px;">
+        <div class="drug-head">
+          <div class="drug-title">
+            Clopidogrel (Plavix)
+          </div>
+          <span class="drug-icons">
+            <span class="drug-icon inactive" title="Natural Product: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm4 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </span>
+            <span class="drug-icon inactive" title="Chemical Probe: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.39.5-.15 1.2.5 1.2h14.6c.65 0 .89-.7.5-1.2z" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Rule Of Five: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                <text x="12" y="16" font-size="14" font-weight="bold" fill="white" text-anchor="middle">5</text>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Approved Drug: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Synthetic: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                <circle cx="16" cy="8" r="2" fill="currentColor"/>
+                <circle cx="8" cy="16" r="2" fill="currentColor"/>
+                <circle cx="16" cy="16" r="2" fill="currentColor"/>
+                <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="8" x2="8" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="16" y1="8" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="16" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div class="drug-info-grid">
+          <div class="drug-info-item">
+            <h4>Dosage</h4>
+            <p><strong>75mg daily</strong></p>
+          </div>
+          <div class="drug-info-item">
+            <h4>How It Works</h4>
+            <p>Prevents blood clots by blocking platelet activation</p>
+          </div>
+          <div class="drug-info-item warning">
+            <h4>Genetic Considerations</h4>
+            <p>Your genetics show reduced effectiveness. Alternative medications recommended.</p>
+          </div>
+          <div class="drug-info-item warning">
+            <h4>Watch For</h4>
+            <ul>
+              <li>Bleeding or bruising</li>
+              <li>Stomach bleeding</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="drug-card" id="drug-metformin" style="margin-top: 16px;">
+        <div class="drug-head">
+          <div class="drug-title">
+            Metformin (Glucophage)
+          </div>
+          <span class="drug-icons">
+            <span class="drug-icon inactive" title="Natural Product: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm4 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </span>
+            <span class="drug-icon inactive" title="Chemical Probe: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.39.5-.15 1.2.5 1.2h14.6c.65 0 .89-.7.5-1.2z" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Rule Of Five: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                <text x="12" y="16" font-size="14" font-weight="bold" fill="white" text-anchor="middle">5</text>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Approved Drug: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Synthetic: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                <circle cx="16" cy="8" r="2" fill="currentColor"/>
+                <circle cx="8" cy="16" r="2" fill="currentColor"/>
+                <circle cx="16" cy="16" r="2" fill="currentColor"/>
+                <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="8" x2="8" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="16" y1="8" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="16" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div class="drug-info-grid">
+          <div class="drug-info-item">
+            <h4>Dosage</h4>
+            <p><strong>500mg twice daily</strong></p>
+          </div>
+          <div class="drug-info-item">
+            <h4>How It Works</h4>
+            <p>Helps your body use insulin better and reduces blood sugar</p>
+          </div>
+          <div class="drug-info-item success">
+            <h4>Genetic Considerations</h4>
+            <p>Your genetics support standard dosing. No changes needed.</p>
+          </div>
+          <div class="drug-info-item">
+            <h4>Watch For</h4>
+            <ul>
+              <li>Stomach upset</li>
+              <li>Kidney function</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="drug-card" id="drug-lisinopril" style="margin-top: 16px;">
+        <div class="drug-head">
+          <div class="drug-title">
+            Lisinopril (Zestril)
+          </div>
+          <span class="drug-icons">
+            <span class="drug-icon inactive" title="Natural Product: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm4 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </span>
+            <span class="drug-icon inactive" title="Chemical Probe: No">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.39.5-.15 1.2.5 1.2h14.6c.65 0 .89-.7.5-1.2z" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Rule Of Five: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill="currentColor"/>
+                <text x="12" y="16" font-size="14" font-weight="bold" fill="white" text-anchor="middle">5</text>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Approved Drug: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="drug-icon active" title="Synthetic: Yes">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                <circle cx="16" cy="8" r="2" fill="currentColor"/>
+                <circle cx="8" cy="16" r="2" fill="currentColor"/>
+                <circle cx="16" cy="16" r="2" fill="currentColor"/>
+                <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="8" x2="8" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="16" y1="8" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="16" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div class="drug-info-grid">
+          <div class="drug-info-item">
+            <h4>Dosage</h4>
+            <p><strong>10mg daily</strong></p>
+          </div>
+          <div class="drug-info-item">
+            <h4>How It Works</h4>
+            <p>Lowers blood pressure by relaxing blood vessels</p>
+          </div>
+          <div class="drug-info-item success">
+            <h4>Genetic Considerations</h4>
+            <p>Your genetics support standard dosing. No changes needed.</p>
+          </div>
+          <div class="drug-info-item">
+            <h4>Watch For</h4>
+            <ul>
+              <li>Dry cough</li>
+              <li>Dizziness</li>
+              <li>Kidney function</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="page-number">Page 3</div>
+  </main>
+
+  <!-- Page 4: Genotype Details -->
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">
+          <img src="assets/medygenes_logosvg.svg" alt="MedyGenes" style="height: 40px; width: auto;">
+        </div>
+        <div>
+          <div style="font-size:12px; color:var(--muted); letter-spacing:0.4px;">Genomic Compatibility Report</div>
+        </div>
+      </div>
+      <div class="contact">
+        <div>medigenes.co.il</div>
+        <div>+1 (555) 321-9876</div>
+        <div>support@medygenes.com</div>
+        <div>Yigal Alon 94, Tel Aviv</div>
+      </div>
+    </header>
+
+    <section class="section" id="genotype-details" style="margin-top:24px;">
+      <h3>Genotype Details</h3>
+      <div class="notes">Click any genotype in the tables above to jump here for a fuller explanation.</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Gene</th>
+            <th>Allele</th>
+            <th>Description</th>
+            <th>Level of Evidence</th>
+            <th>Clinical Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2">SLCO1B1</td>
+            <td><a class="detail-link" href="#geno-slco1b1-5">*5</a></td>
+            <td>Decreased statin uptake; higher systemic exposure and myopathy risk.</td>
+            <td>1A</td>
+            <td>Toxicity</td>
+          </tr>
+          <tr>
+            <td><a class="detail-link" href="#geno-slco1b1-5">*5</a></td>
+            <td>Decreased statin uptake; higher systemic exposure and myopathy risk.</td>
+            <td>1A</td>
+            <td>Toxicity</td>
+          </tr>
+          <tr>
+            <td rowspan="2">ABCG2</td>
+            <td><a class="detail-link" href="#geno-abcg2-421">C</a></td>
+            <td>Reduced efflux; can raise atorvastatin levels.</td>
+            <td>2A</td>
+            <td>Toxicity</td>
+          </tr>
+          <tr>
+            <td><a class="detail-link" href="#geno-abcg2-421">A</a></td>
+            <td>Reduced efflux; can raise atorvastatin levels.</td>
+            <td>2A</td>
+            <td>Toxicity</td>
+          </tr>
+          <tr>
+            <td rowspan="2">CYP2C19</td>
+            <td><a class="detail-link" href="#geno-cyp2c19-2">*2</a></td>
+            <td>Poor activation of clopidogrel; diminished antiplatelet effect.</td>
+            <td>1A</td>
+            <td>Efficacy</td>
+          </tr>
+          <tr>
+            <td><a class="detail-link" href="#geno-cyp2c19-2">*2</a></td>
+            <td>Poor activation of clopidogrel; diminished antiplatelet effect.</td>
+            <td>1A</td>
+            <td>Efficacy</td>
+          </tr>
+          <tr>
+            <td rowspan="2">ABCB1</td>
+            <td><a class="detail-link" href="#geno-abcb1-3435">C</a></td>
+            <td>Modest impact on clopidogrel absorption; adds to reduced exposure.</td>
+            <td>2B</td>
+            <td>Efficacy</td>
+          </tr>
+          <tr>
+            <td><a class="detail-link" href="#geno-abcb1-3435">T</a></td>
+            <td>Modest impact on clopidogrel absorption; adds to reduced exposure.</td>
+            <td>2B</td>
+            <td>Efficacy</td>
+          </tr>
+          <tr>
+            <td rowspan="2">ATM</td>
+            <td><a class="detail-link" href="#geno-atm-3161">G</a></td>
+            <td>Common variant; typically no metformin dose change.</td>
+            <td>3</td>
+            <td>Metabolizer</td>
+          </tr>
+          <tr>
+            <td><a class="detail-link" href="#geno-atm-3161">A</a></td>
+            <td>Common variant; typically no metformin dose change.</td>
+            <td>3</td>
+            <td>Metabolizer</td>
+          </tr>
+          <tr>
+            <td rowspan="2">SLC22A1</td>
+            <td><a class="detail-link" href="#geno-slc22a1-r61c">R61</a></td>
+            <td>Slightly reduced OCT1 transport; minor effect on metformin uptake.</td>
+            <td>2B</td>
+            <td>Metabolizer</td>
+          </tr>
+          <tr>
+            <td><a class="detail-link" href="#geno-slc22a1-r61c">C</a></td>
+            <td>Slightly reduced OCT1 transport; minor effect on metformin uptake.</td>
+            <td>2B</td>
+            <td>Metabolizer</td>
+          </tr>
+          <tr>
+            <td rowspan="2">ACE</td>
+            <td><a class="detail-link" href="#geno-ace-id">I</a></td>
+            <td>Insertion/deletion with minimal impact on ACE inhibitor response.</td>
+            <td>4</td>
+            <td>Efficacy</td>
+          </tr>
+          <tr>
+            <td><a class="detail-link" href="#geno-ace-id">D</a></td>
+            <td>Insertion/deletion with minimal impact on ACE inhibitor response.</td>
+            <td>4</td>
+            <td>Efficacy</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="footer">
+      <div>Confidential · For clinical decision support only</div>
+      <div>MedyGenes © 2025</div>
+    </footer>
+    <div class="page-number">Page 4</div>
+  </main>
+
+</body>
+</html>
+
