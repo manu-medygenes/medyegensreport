@@ -1,0 +1,569 @@
+[
+  {
+    "Gene": "APC",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Familial adenomatous polyposis",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "BMPR1A",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Juvenile polyposis syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "BRCA1",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary breast and ovarian cancer syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "BRCA2",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary breast and ovarian cancer syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Positive"
+  },
+  {
+    "Gene": "MAX",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary paraganglioma-pheochromocytoma syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MEN1",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Multiple endocrine neoplasia type 1",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MLH1",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Lynch syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MSH2",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Lynch syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MSH6",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Lynch syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MUTYH",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "MUTYH-associated polyposis",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "NF2",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Neurofibromatosis type 2",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "PALB2",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary breast cancer",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "PMS2",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Lynch syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "PTEN",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Cowden syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "RB1",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Retinoblastoma",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "RET",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Multiple endocrine neoplasia type 2",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "SDHD",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary paraganglioma-pheochromocytoma syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "SDHAF2",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary paraganglioma-pheochromocytoma syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "SDHC",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary paraganglioma-pheochromocytoma syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "SDHB",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary paraganglioma-pheochromocytoma syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "SMAD4",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Juvenile polyposis syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "STK11",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Peutz-Jeghers syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TMEM127",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Hereditary paraganglioma-pheochromocytoma syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TP53",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Li-Fraumeni syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TSC1",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Tuberous sclerosis complex",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TSC2",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Tuberous sclerosis complex",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "WT1",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "WT1-related Wilms tumor",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "VHL",
+    "Disease Group": "Cancer predisposition genes",
+    "Associated Condition": "Von Hippel-Lindau syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "ACTA2",
+    "Disease Group": "Familial thoracic aortic aneurysm",
+    "Associated Condition": "Familial thoracic aortic aneurysm and dissection",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "ACTC1",
+    "Disease Group": "Familial thoracic aortic aneurysm",
+    "Associated Condition": "Familial thoracic aortic aneurysm and dissection",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "APOB",
+    "Disease Group": "Familial hypercholesterolemia",
+    "Associated Condition": "Familial hypercholesterolemia",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "BAG3",
+    "Disease Group": "Dilated cardiomyopathy",
+    "Associated Condition": "Dilated cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "CACNA1S",
+    "Disease Group": "Malignant hyperthermia susceptibility",
+    "Associated Condition": "Malignant hyperthermia susceptibility",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "CASQ2",
+    "Disease Group": "Catecholaminergic polymorphic ventricular tachycardia",
+    "Associated Condition": "Catecholaminergic polymorphic ventricular tachycardia",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Positive"
+  },
+  {
+    "Gene": "TRDN",
+    "Disease Group": "Catecholaminergic polymorphic ventricular tachycardia",
+    "Associated Condition": "Catecholaminergic polymorphic ventricular tachycardia",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "CALM1",
+    "Disease Group": "Long QT syndrome / CPVT",
+    "Associated Condition": "Long QT syndrome / Catecholaminergic polymorphic ventricular tachycardia",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "CALM2",
+    "Disease Group": "Long QT syndrome / CPVT",
+    "Associated Condition": "Long QT syndrome / Catecholaminergic polymorphic ventricular tachycardia",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "CALM3",
+    "Disease Group": "Long QT syndrome / CPVT",
+    "Associated Condition": "Long QT syndrome / Catecholaminergic polymorphic ventricular tachycardia",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "FBN1",
+    "Disease Group": "Marfan syndrome",
+    "Associated Condition": "Marfan syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Positive"
+  },
+  {
+    "Gene": "TGFBR1",
+    "Disease Group": "Loeys-Dietz syndrome",
+    "Associated Condition": "Loeys-Dietz syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TGFBR2",
+    "Disease Group": "Loeys-Dietz syndrome",
+    "Associated Condition": "Loeys-Dietz syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "SMAD3",
+    "Disease Group": "Loeys-Dietz syndrome",
+    "Associated Condition": "Loeys-Dietz syndrome type 3",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MYBPC3",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MYH7",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TNNT2",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TNNI3",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TPM1",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MYL3",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "LMNA",
+    "Disease Group": "Dilated cardiomyopathy",
+    "Associated Condition": "Dilated cardiomyopathy with conduction defects",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "FLNC",
+    "Disease Group": "Dilated cardiomyopathy",
+    "Associated Condition": "Dilated cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TTN",
+    "Disease Group": "Dilated cardiomyopathy",
+    "Associated Condition": "Dilated cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "RBM20",
+    "Disease Group": "Dilated cardiomyopathy",
+    "Associated Condition": "Dilated cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "DES",
+    "Disease Group": "Dilated cardiomyopathy",
+    "Associated Condition": "Dilated cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TNNC1",
+    "Disease Group": "Dilated cardiomyopathy",
+    "Associated Condition": "Dilated cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "PRKAG2",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MYL2",
+    "Disease Group": "Hypertrophic cardiomyopathy",
+    "Associated Condition": "Hypertrophic cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "LDLR",
+    "Disease Group": "Familial hypercholesterolemia",
+    "Associated Condition": "Familial hypercholesterolemia",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "PCSK9",
+    "Disease Group": "Familial hypercholesterolemia",
+    "Associated Condition": "Familial hypercholesterolemia",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TTR",
+    "Disease Group": "Transthyretin amyloidosis",
+    "Associated Condition": "Familial transthyretin amyloidosis",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "COL3A1",
+    "Disease Group": "Ehlers-Danlos syndrome vascular type",
+    "Associated Condition": "Ehlers-Danlos syndrome type IV",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "MYH11",
+    "Disease Group": "Familial thoracic aortic aneurysm",
+    "Associated Condition": "Familial thoracic aortic aneurysm and dissection",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "PKP2",
+    "Disease Group": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Associated Condition": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "DSP",
+    "Disease Group": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Associated Condition": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Positive"
+  },
+  {
+    "Gene": "DSC2",
+    "Disease Group": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Associated Condition": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "TMEM43",
+    "Disease Group": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Associated Condition": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "DSG2",
+    "Disease Group": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Associated Condition": "Arrhythmogenic right ventricular cardiomyopathy",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "KCNQ1",
+    "Disease Group": "Long QT syndrome",
+    "Associated Condition": "Long QT syndrome type 1",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "KCNH2",
+    "Disease Group": "Long QT syndrome",
+    "Associated Condition": "Long QT syndrome type 2",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "SCN5A",
+    "Disease Group": "Long QT syndrome / Brugada syndrome",
+    "Associated Condition": "Long QT syndrome type 3 / Brugada syndrome",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "RYR2",
+    "Disease Group": "Catecholaminergic polymorphic ventricular tachycardia",
+    "Associated Condition": "Catecholaminergic polymorphic ventricular tachycardia",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "HNF1A",
+    "Disease Group": "Maturity-onset diabetes of the young",
+    "Associated Condition": "Maturity-onset diabetes of the young type 3",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "GAA",
+    "Disease Group": "Pompe disease",
+    "Associated Condition": "Pompe disease",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "BTD",
+    "Disease Group": "Biotinidase deficiency",
+    "Associated Condition": "Biotinidase deficiency",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "HFE",
+    "Disease Group": "Hereditary hemochromatosis",
+    "Associated Condition": "Hereditary hemochromatosis",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "OTC",
+    "Disease Group": "Ornithine transcarbamylase deficiency",
+    "Associated Condition": "Ornithine transcarbamylase deficiency",
+    "Inheritance": "X-linked",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "GLA",
+    "Disease Group": "Fabry disease",
+    "Associated Condition": "Fabry disease",
+    "Inheritance": "X-linked",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "ATP7B",
+    "Disease Group": "Wilson disease",
+    "Associated Condition": "Wilson disease",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "ACVRL1",
+    "Disease Group": "Miscellaneous Conditions",
+    "Associated Condition": "Hereditary hemorrhagic telangiectasia type 2",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "ENG",
+    "Disease Group": "Miscellaneous Conditions",
+    "Associated Condition": "Hereditary hemorrhagic telangiectasia type 1",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "RPE65",
+    "Disease Group": "Miscellaneous Conditions",
+    "Associated Condition": "Leber congenital amaurosis / Retinitis pigmentosa",
+    "Inheritance": "Autosomal recessive",
+    "Result": "Negative"
+  },
+  {
+    "Gene": "RYR1",
+    "Disease Group": "Miscellaneous Conditions",
+    "Associated Condition": "Malignant hyperthermia susceptibility",
+    "Inheritance": "Autosomal dominant",
+    "Result": "Negative"
+  }
+]

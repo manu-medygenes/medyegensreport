@@ -1,0 +1,891 @@
+/* MedyGenes ACMG Report Styles - A4 Format */
+:root {
+    --bg: #f7f7f7;
+    --panel: #ffffff;
+    --text: #123C4E;
+    --muted: #4c4c4c;
+    --accent: #0CCA4A;
+    --border: #dedede;
+    --positive-color: #e74c3c;
+    --negative-color: #27ae60;
+    --warning-color: #f39c12;
+    --carrier-color: #3498db;
+    --vus-color: #7f8c8d;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+}
+
+@media screen {
+    body {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* A4 Page Layout */
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--panel);
+    padding: 36px 44px 48px;
+    page-break-after: always;
+    position: relative;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 24px;
+}
+
+.page:last-child {
+    page-break-after: auto;
+}
+
+.page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent) 0%, #0CCA4A80 100%);
+}
+
+.page-number {
+    position: absolute;
+    bottom: 20px;
+    right: 44px;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+    padding: 4px 8px;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+/* Header/Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 18px;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.brand .mark {
+    width: auto;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.brand .mark img {
+    height: 100%;
+    width: auto;
+    display: block;
+}
+
+.contact {
+    text-align: right;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 24px;
+    padding: 18px 18px 14px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+}
+
+.section h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Meta Grid (Patient Info) */
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 18px;
+    font-size: 14px;
+}
+
+.meta-grid .label {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.meta-grid > div > div {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* Table of Contents */
+.toc-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 24px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list li {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.toc-list a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.toc-list a:hover {
+    color: var(--accent);
+}
+
+/* Summary Cards */
+.summary-cards-grid {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    align-items: stretch;
+}
+
+.summary-card {
+    background: var(--panel);
+    padding: 16px 14px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.summary-card.total {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid var(--accent);
+    flex: 0.8;
+}
+
+.summary-card.positive {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
+    border: 2px solid var(--positive-color);
+}
+
+.summary-card.positive .number { color: var(--positive-color); }
+.summary-card.positive .icon { color: var(--positive-color); }
+
+.summary-card.carrier {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #5e6d7e;
+}
+
+.summary-card.carrier .number { color: #5e6d7e; }
+.summary-card.carrier .icon { color: #5e6d7e; }
+
+.summary-card.vus {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid var(--vus-color);
+}
+
+.summary-card.vus .number { color: var(--vus-color); }
+.summary-card.vus .icon { color: var(--vus-color); }
+
+.summary-card.negative {
+    background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%);
+    border: 2px solid var(--negative-color);
+}
+
+.summary-card.negative .number { color: var(--negative-color); }
+.summary-card.negative .icon { color: var(--negative-color); }
+
+.summary-card .icon {
+    margin-bottom: 6px;
+    opacity: 0.85;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.summary-card .icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.summary-card .number {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+}
+
+.summary-card.total .number {
+    color: var(--accent);
+    font-size: 28px;
+}
+
+.summary-card .label {
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+/* Executive Summary */
+.executive-content p {
+    margin-bottom: 12px;
+    text-align: justify;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.executive-highlight {
+    background: #fff8e6;
+    border-left: 4px solid var(--warning-color);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+}
+
+.executive-highlight.positive-findings {
+    background: #fff4f4;
+    border-left-color: var(--positive-color);
+}
+
+.executive-highlight.carrier-findings {
+    background: #ebf5fb;
+    border-left-color: var(--carrier-color);
+}
+
+.executive-highlight.vus-findings {
+    background: #f4f6f6;
+    border-left-color: var(--vus-color);
+}
+
+.executive-highlight.no-findings {
+    background: #f2fff9;
+    border-left-color: var(--negative-color);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 8px;
+    table-layout: fixed;
+}
+
+thead {
+    background: var(--text);
+    color: #fff;
+}
+
+th, td {
+    padding: 8px 6px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+tbody tr:nth-child(odd) { background: #fafafa; }
+tbody tr:hover { background: #f0f0f0; }
+
+/* Column widths for findings table */
+.findings-summary-table th:nth-child(1) { width: 5%; }
+.findings-summary-table th:nth-child(2) { width: 12%; }
+.findings-summary-table th:nth-child(3) { width: 18%; }
+.findings-summary-table th:nth-child(4) { width: 22%; }
+.findings-summary-table th:nth-child(5) { width: 28%; }
+.findings-summary-table th:nth-child(6) { width: 15%; }
+
+/* Column widths for gene table */
+.gene-table th:nth-child(1) { width: 10%; }
+.gene-table th:nth-child(2) { width: 22%; }
+.gene-table th:nth-child(3) { width: 35%; }
+.gene-table th:nth-child(4) { width: 18%; }
+.gene-table th:nth-child(5) { width: 15%; }
+
+.findings-summary-table thead { background: var(--positive-color); }
+.findings-summary-table.carrier thead { background: #5e6d7e; }
+.findings-summary-table.vus thead { background: var(--vus-color); }
+
+/* Badges */
+.classification-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.classification-badge.pathogenic { background: var(--positive-color); color: white; }
+.classification-badge.likely-pathogenic { background: var(--warning-color); color: white; }
+.classification-badge.carrier { background: #5e6d7e; color: white; }
+.classification-badge.vus { background: var(--vus-color); color: white; }
+
+.result-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.result-badge.positive { background: var(--positive-color); color: white; }
+.result-badge.negative { background: #f2fff9; color: var(--negative-color); border: 1px solid #c7f1dc; }
+
+/* Finding Cards */
+.finding-card {
+    background: var(--panel);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.finding-header {
+    background: linear-gradient(135deg, var(--positive-color), #c0392b);
+    color: white;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.finding-header.likely-pathogenic {
+    background: linear-gradient(135deg, var(--warning-color), #e67e22);
+}
+
+.finding-header.carrier {
+    background: linear-gradient(135deg, #5e6d7e, #6c7a89);
+}
+
+.finding-header.vus {
+    background: linear-gradient(135deg, var(--vus-color), #5e6d7e);
+}
+
+.finding-header h4 {
+    font-size: 14px;
+    margin: 0;
+}
+
+.finding-header .classification {
+    background: rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+.finding-body {
+    padding: 0;
+}
+
+/* Info Sections */
+.info-section {
+    border-bottom: 1px solid var(--border);
+}
+
+.info-section:last-child { border-bottom: none; }
+
+.info-section h5 {
+    color: white;
+    background: var(--text);
+    margin: 0;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.info-section h5.gene-protein { background: linear-gradient(135deg, #123C4E, #1a5a6e); }
+.info-section h5.actionability { background: linear-gradient(135deg, #123C4E, #1a5a6e); }
+
+.info-section-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding: 12px;
+    background: #fafafa;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+    margin: 2px;
+    border-radius: 4px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 3px;
+}
+
+.info-label-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.info-value {
+    color: var(--text);
+    word-break: break-word;
+    font-size: 12px;
+}
+
+.info-value.not-available {
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Tooltips */
+.tooltip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    background-color: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: bold;
+    cursor: help;
+    position: relative;
+}
+
+.tooltip-icon:hover { background-color: var(--text); }
+
+.tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.4;
+    width: 220px;
+    text-transform: none;
+    letter-spacing: normal;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.tooltip-icon:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Recommendation Cards */
+.recommendation-card {
+    background: var(--panel);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    border-left: 4px solid var(--text);
+}
+
+.recommendation-header {
+    background: linear-gradient(135deg, #123C4E, #1a5a6e);
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recommendation-header h4 {
+    font-size: 13px;
+    margin: 0;
+}
+
+.recommendation-header .evidence-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+.recommendation-body {
+    padding: 16px;
+}
+
+.recommendation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.recommendation-list {
+    background: #f8f9fa;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+.recommendation-list h5 {
+    color: var(--text);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+}
+
+.recommendation-list ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 12px;
+}
+
+.recommendation-list ul li {
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+/* Gene Table Controls */
+.table-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.search-box, .filter-select {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12px;
+    background: white;
+}
+
+.search-box { min-width: 200px; }
+
+.gene-table th {
+    cursor: pointer;
+    user-select: none;
+    position: sticky;
+    top: 0;
+}
+
+.gene-table th:hover { background: #1a4a5e; }
+
+.gene-table th::after {
+    content: ' ↕';
+    opacity: 0.5;
+    font-size: 10px;
+}
+
+.positive-row { background-color: #fff4f4 !important; }
+.positive-row:hover { background-color: #fee2e2 !important; }
+
+/* Messages */
+.no-findings-message {
+    color: var(--muted);
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.no-recommendations {
+    color: var(--muted);
+    font-style: italic;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 20px;
+    left: 44px;
+    right: 100px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+/* Report Navigation */
+.report-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: #ffffff;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 200px;
+}
+
+.report-nav-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+}
+
+.report-nav-btn {
+    padding: 10px 14px;
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    text-decoration: none;
+    display: block;
+}
+
+.report-nav-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateX(4px);
+}
+
+.report-nav-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+}
+
+/* Print Styles */
+@media print {
+    .report-nav { display: none; }
+    .table-controls { display: none; }
+    body { 
+        background: #fff; 
+        padding: 0; 
+        margin: 0;
+    }
+    .page { 
+        box-shadow: none; 
+        border: none;
+        width: 210mm;
+        min-height: auto;
+        height: auto;
+        margin: 0;
+        padding: 20mm 15mm 25mm 15mm;
+        page-break-after: always;
+        page-break-inside: auto;
+    }
+    .page:last-child { page-break-after: auto; }
+    
+    /* Sections can break across pages */
+    .section { 
+        break-inside: auto;
+        page-break-inside: auto;
+        margin-bottom: 16px;
+    }
+    
+    /* Finding cards can break if needed */
+    .finding-card { 
+        break-inside: auto;
+        page-break-inside: auto;
+    }
+    
+    /* Recommendation cards can break */
+    .recommendation-card {
+        break-inside: auto;
+        page-break-inside: auto;
+    }
+    
+    /* Tables - allow breaking across pages */
+    table {
+        width: 100%;
+        max-width: 100%;
+        page-break-inside: auto;
+        font-size: 10px;
+    }
+    
+    /* Repeat table headers on each page */
+    thead {
+        display: table-header-group;
+    }
+    
+    tbody {
+        display: table-row-group;
+    }
+    
+    /* Rows shouldn't break in the middle */
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    
+    th, td {
+        padding: 6px 4px;
+        font-size: 9px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* Keep topbar on each page but smaller */
+    .topbar {
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+    }
+    
+    .topbar .brand .mark img {
+        height: 30px;
+    }
+    
+    .contact {
+        font-size: 10px;
+    }
+    
+    /* Summary cards smaller for print */
+    .summary-cards-grid {
+        gap: 8px;
+    }
+    .summary-card {
+        padding: 10px 8px;
+        min-height: 60px;
+    }
+    .summary-card .number {
+        font-size: 24px;
+    }
+    .summary-card .icon svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* Info sections can break */
+    .info-section {
+        break-inside: auto;
+        page-break-inside: auto;
+    }
+    
+    .info-section-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .info-row {
+        padding: 6px 8px;
+        font-size: 9px;
+    }
+    
+    /* Hide tooltips in print */
+    .tooltip-icon { display: none; }
+    
+    /* Footer positioning */
+    .footer {
+        position: relative;
+        margin-top: 20px;
+        font-size: 9px;
+    }
+    
+    /* Executive highlights */
+    .executive-highlight {
+        padding: 10px 12px;
+        margin: 10px 0;
+        font-size: 11px;
+    }
+    
+    /* Badges smaller */
+    .classification-badge,
+    .result-badge {
+        padding: 2px 6px;
+        font-size: 8px;
+    }
+}
+
+@page {
+    size: A4;
+    margin: 15mm 10mm 20mm 10mm;
+}

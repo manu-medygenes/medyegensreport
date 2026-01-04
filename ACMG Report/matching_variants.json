@@ -1,0 +1,194 @@
+[
+  {
+    "Finding 1: BRCA2 - Pathogenic": {
+      "Basic Information": {
+        "Gene (HGNC)": "BRCA2",
+        "Transcript": "NM_000059.4",
+        "Genomic Location": "chr13:32376718",
+        "dbSNP ID": "rs2548553281",
+        "cDNA Change (HGVS)": "c.8681_8684delAAGTinsG",
+        "Protein Change (HGVS)": "p.Gln2894_Val2895delinsArg",
+        "Genomic Alternation": "A > G",
+        "Variant Type": "single nucleotide variant",
+        "Zygosity": "homozygous"
+      },
+      "ACMG Information": {
+        "ACMG Score": "3",
+        "ACMG/AMP Criteria Applied": "PM2,PM4_Supporting",
+        "Final Classification": "Uncertain_significance"
+      },
+      "Additional Parameters": {
+        "Biotype": "protein coding",
+        "ClinVar ID": "VCV002692256",
+        "ClinVar Review Status": "☆☆☆☆ (No assertion criteria provided)",
+        "ClinVar Submissions Summary": "Not available"
+      },
+      "ClinVar Information": {
+        "Associated Condition": "Hereditary breast and ovarian cancer syndrome",
+        "Inheritance Pattern": "Autosomal dominant",
+        "ClinGen Gene-Disease Validity": "Definitive for Fanconi anemia complementation group D1 (Autosomal Recessive)",
+        "Key Publications": "PMID:35802134; PMID:34012068; PMID:33410258; PMID:31672839; PMID:31479213 (+5 more)"
+      },
+      "Gene & Protein Information": {
+        "Protein Name": "Breast cancer type 2 susceptibility protein",
+        "Protein Function": "Involved in double-strand break repair and/or homologous recombination. Binds RAD51 and potentiates recombinational DNA repair by promoting assembly of RAD51 onto single-stranded DNA (ssDNA). Acts by targeting RAD51 to ssDNA over double-stranded DNA, enabling RAD51 to displace replication protein-A (RPA) from ssDNA and stabilizing RAD51-ssDNA filaments by blocking ATP hydrolysis. Part of a PALB2-scaffolded HR complex containing RAD51C and which is thought to play a role in DNA repair by HR."
+      },
+      "Clinical Actionability": {
+        "Severity": "Moderate (serious morbidity)",
+        "Outcomes": [
+          "Breast Cancer (BRCA1)",
+          "Ovarian Cancer (BRCA1)",
+          "Breast Cancer (BRCA2)",
+          "Ovarian Cancer (BRCA2)",
+          "Morbidity due to bone marrow failure",
+          "Morbidity due to FA-related solid tumors"
+        ],
+        "Interventions": [
+          "Surveillance",
+          "Mastectomy",
+          "Oophorectomy",
+          "Evaluation by hematologist with blood counts and bone marrow aspirate to monitor bone marrow failure to initiate further treatment",
+          "Evaluation by provider with experience in FA to detect solid tumors and initiate treatment"
+        ]
+      }
+    }
+  },
+  {
+    "Finding 2: CASQ2 - Pathogenic": {
+      "Basic Information": {
+        "Gene (HGNC)": "CASQ2",
+        "Transcript": "NM_001232.4",
+        "Genomic Location": "chr1:115744903",
+        "dbSNP ID": "rs2526032244",
+        "cDNA Change (HGVS)": "c.244C>T",
+        "Protein Change (HGVS)": "p.Gln82*",
+        "Genomic Alternation": "A > G",
+        "Variant Type": "single nucleotide variant",
+        "Zygosity": "unknown"
+      },
+      "ACMG Information": {
+        "ACMG Score": "12",
+        "ACMG/AMP Criteria Applied": "PVS1,PM2,PP5_Moderate",
+        "Final Classification": "Pathogenic"
+      },
+      "Additional Parameters": {
+        "Biotype": "protein coding",
+        "ClinVar ID": "VCV002914975",
+        "ClinVar Review Status": "★☆☆☆ (Single submitter)",
+        "ClinVar Submissions Summary": "P:1"
+      },
+      "ClinVar Information": {
+        "Associated Condition": "Catecholaminergic polymorphic ventricular tachycardia",
+        "Inheritance Pattern": "Autosomal recessive",
+        "ClinGen Gene-Disease Validity": "Definitive for catecholaminergic polymorphic ventricular tachycardia (Autosomal Recessive)",
+        "Key Publications": "PMID:35802134; PMID:34012068; PMID:28492532; PMID:27854360; PMID:25356965 (+5 more)"
+      },
+      "Gene & Protein Information": {
+        "Protein Name": "Calsequestrin-2",
+        "Protein Function": "Calsequestrin is a high-capacity, moderate affinity, calcium-binding protein and thus acts as an internal calcium store in muscle. Calcium ions are bound by clusters of acidic residues at the protein surface, especially at the interface between subunits. Can bind around 60 Ca(2+) ions. Regulates the release of lumenal Ca(2+) via the calcium release channel RYR2; this plays an important role in triggering muscle contraction."
+      },
+      "Clinical Actionability": {
+        "Severity": "High (sudden death)",
+        "Outcomes": [
+          "Sudden cardiac death"
+        ],
+        "Interventions": [
+          "Antiarrhythmic therapy with beta-blockers and consideration for more intensive therapies as indicated",
+          "Avoidance of intense exercise"
+        ]
+      }
+    }
+  },
+  {
+    "Finding 3: DSP - Likely pathogenic": {
+      "Basic Information": {
+        "Gene (HGNC)": "DSP",
+        "Transcript": "NM_004415.4",
+        "Genomic Location": "chr6:7584617",
+        "dbSNP ID": "rs1581823904",
+        "cDNA Change (HGVS)": "c.7355A>T",
+        "Protein Change (HGVS)": "p.Gln2452Leu",
+        "Genomic Alternation": "C > T",
+        "Variant Type": "single nucleotide variant",
+        "Zygosity": "homozygous"
+      },
+      "ACMG Information": {
+        "ACMG Score": "0",
+        "ACMG/AMP Criteria Applied": "PM2,BP4_Moderate",
+        "Final Classification": "Uncertain_significance"
+      },
+      "Additional Parameters": {
+        "Biotype": "protein coding",
+        "ClinVar ID": "VCV000817454",
+        "ClinVar Review Status": "★☆☆☆ (Single submitter)",
+        "ClinVar Submissions Summary": "Not available"
+      },
+      "ClinVar Information": {
+        "Associated Condition": "Arrhythmogenic right ventricular cardiomyopathy",
+        "Inheritance Pattern": "Autosomal dominant",
+        "ClinGen Gene-Disease Validity": "Definitive for arrhythmogenic cardiomyopathy with wooly hair and keratoderma (Autosomal Dominant)",
+        "Key Publications": "None cited"
+      },
+      "Gene & Protein Information": {
+        "Protein Name": "Desmoplakin",
+        "Protein Function": "Major high molecular weight protein of desmosomes. Regulates profibrotic gene expression in cardiomyocytes via activation of the MAPK14/p38 MAPK signaling cascade and increase in TGFB1 protein abundance (By similarity)"
+      },
+      "Clinical Actionability": {
+        "Severity": "High (sudden death)",
+        "Outcomes": [
+          "Sudden cardiac death"
+        ],
+        "Interventions": [
+          "Surveillance to detect disease manifestations [cardiac arrhythmias and structural disease] to guide treatment including antiarrhythmic medications"
+        ]
+      }
+    }
+  },
+  {
+    "Finding 4: FBN1 - Pathogenic": {
+      "Basic Information": {
+        "Gene (HGNC)": "FBN1",
+        "Transcript": "NM_000138.5",
+        "Genomic Location": "chr15:48421947",
+        "dbSNP ID": "rs1566891797",
+        "cDNA Change (HGVS)": "c.7570+5G>A",
+        "Protein Change (HGVS)": "",
+        "Genomic Alternation": "G > A",
+        "Variant Type": "single nucleotide variant",
+        "Zygosity": "heterozygous"
+      },
+      "ACMG Information": {
+        "ACMG Score": "8",
+        "ACMG/AMP Criteria Applied": "PM2,PP3_Strong,PP5_Moderate",
+        "Final Classification": "Likely_pathogenic"
+      },
+      "Additional Parameters": {
+        "Biotype": "protein coding",
+        "ClinVar ID": "VCV000633778",
+        "ClinVar Review Status": "★☆☆☆ (Single submitter)",
+        "ClinVar Submissions Summary": "P:1"
+      },
+      "ClinVar Information": {
+        "Associated Condition": "Marfan syndrome",
+        "Inheritance Pattern": "Autosomal dominant",
+        "ClinGen Gene-Disease Validity": "Definitive for Marfan syndrome (Autosomal Dominant)",
+        "Key Publications": "PMID:35802134; PMID:34012068; PMID:28161018; PMID:27854360; PMID:25356965 (+5 more)"
+      },
+      "Gene & Protein Information": {
+        "Protein Name": "Fibrillin-1",
+        "Protein Function": "Adipokine secreted by white adipose tissue that plays an important regulatory role in the glucose metabolism of liver, muscle and pancreas (PubMed:27087445, PubMed:30853600). Hormone that targets the liver in response to fasting to increase plasma glucose levels (PubMed:27087445)."
+      },
+      "Clinical Actionability": {
+        "Severity": "Moderate (serious morbidity)",
+        "Outcomes": [
+          "Clinically significant aortic aneurysm",
+          "Aortic dilation progression"
+        ],
+        "Interventions": [
+          "Aortic surveillance",
+          "Pharmacotherapy"
+        ]
+      }
+    }
+  }
+]
