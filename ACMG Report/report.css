@@ -233,20 +233,20 @@ body {
 .summary-card.positive .icon { color: var(--positive-color); }
 
 .summary-card.carrier {
+    background: linear-gradient(135deg, #e7f5ff 0%, #d0ebff 100%);
+    border: 2px solid #3498db;
+}
+
+.summary-card.carrier .number { color: #3498db; }
+.summary-card.carrier .icon { color: #3498db; }
+
+.summary-card.vus {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border: 2px solid #5e6d7e;
 }
 
-.summary-card.carrier .number { color: #5e6d7e; }
-.summary-card.carrier .icon { color: #5e6d7e; }
-
-.summary-card.vus {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 2px solid var(--vus-color);
-}
-
-.summary-card.vus .number { color: var(--vus-color); }
-.summary-card.vus .icon { color: var(--vus-color); }
+.summary-card.vus .number { color: #5e6d7e; }
+.summary-card.vus .icon { color: #5e6d7e; }
 
 .summary-card.negative {
     background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%);
@@ -371,8 +371,8 @@ tbody tr:hover { background: #f0f0f0; }
 .gene-table th:nth-child(5) { width: 15%; }
 
 .findings-summary-table thead { background: var(--positive-color); }
-.findings-summary-table.carrier thead { background: #5e6d7e; }
-.findings-summary-table.vus thead { background: var(--vus-color); }
+.findings-summary-table.carrier thead { background: #3498db; }
+.findings-summary-table.vus thead { background: #5e6d7e; }
 
 /* Badges */
 .classification-badge {
@@ -386,8 +386,8 @@ tbody tr:hover { background: #f0f0f0; }
 
 .classification-badge.pathogenic { background: var(--positive-color); color: white; }
 .classification-badge.likely-pathogenic { background: var(--warning-color); color: white; }
-.classification-badge.carrier { background: #5e6d7e; color: white; }
-.classification-badge.vus { background: var(--vus-color); color: white; }
+.classification-badge.carrier { background: #3498db; color: white; }
+.classification-badge.vus { background: #5e6d7e; color: white; }
 
 .result-badge {
     display: inline-block;
@@ -423,11 +423,11 @@ tbody tr:hover { background: #f0f0f0; }
 }
 
 .finding-header.carrier {
-    background: linear-gradient(135deg, #5e6d7e, #6c7a89);
+    background: linear-gradient(135deg, #3498db, #2980b9);
 }
 
 .finding-header.vus {
-    background: linear-gradient(135deg, var(--vus-color), #5e6d7e);
+    background: linear-gradient(135deg, #5e6d7e, #6c7a89);
 }
 
 .finding-header h4 {
